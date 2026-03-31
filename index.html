@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness App — ICP Reference</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0f1e;
+      --surface:   #111827;
+      --border:    #1e2d45;
+      --cyan:      #06b6d4;
+      --cyan-dim:  #0e7490;
+      --cyan-glow: rgba(6,182,212,.12);
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --tag-bg:    #0f2233;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 48px 24px 80px;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    header {
+      max-width: 960px;
+      margin: 0 auto 48px;
+      display: flex;
+      align-items: flex-end;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .logo-mark {
+      width: 40px; height: 40px;
+      background: var(--cyan);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 18px; color: var(--bg);
+      flex-shrink: 0;
+    }
+    .header-text h1 {
+      font-size: 22px; font-weight: 700; letter-spacing: -.3px;
+    }
+    .header-text p {
+      font-size: 13px; color: var(--muted); margin-top: 2px;
+    }
+    .badge {
+      margin-left: auto;
+      font-size: 11px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase;
+      color: var(--cyan); background: var(--cyan-glow);
+      border: 1px solid var(--cyan-dim);
+      padding: 4px 10px; border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .2s;
+    }
+    .card:hover { border-color: var(--cyan-dim); }
+
+    .card-header {
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, #0f1b2d 0%, #0d1625 100%);
+    }
+    .icp-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .card-header h2 {
+      font-size: 18px; font-weight: 700; line-height: 1.3;
+    }
+
+    /* ── Sections inside card ── */
+    .card-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 20px; }
+
+    .section-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .section-icon {
+      width: 20px; height: 20px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    /* Who */
+    .who-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .tag.highlight {
+      border-color: var(--cyan-dim);
+      color: var(--cyan);
+      background: var(--cyan-glow);
+    }
+
+    /* Pain */
+    .pain-text {
+      font-size: 14px; color: #94a3b8;
+      background: #0d1a27;
+      border-left: 3px solid #dc2626;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      line-height: 1.6;
+    }
+    .pain-text strong { color: #fca5a5; }
+
+    /* Entry */
+    .entry-box {
+      background: var(--cyan-glow);
+      border: 1px solid var(--cyan-dim);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 14px; color: #a5f3fc;
+      line-height: 1.6;
+    }
+    .entry-box strong { color: var(--cyan); }
+
+    /* Content checklist */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .checklist li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 13px;
+      background: #0d1625;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .checklist li .item-name { flex: 1; }
+
+    /* Status pill */
+    .status {
+      font-size: 10px; font-weight: 700; letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 3px 9px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .status.not-started  { background: #1e2d3d; color: var(--muted); border: 1px solid #263348; }
+    .status.in-progress  { background: #1c2a12; color: #86efac; border: 1px solid #166534; }
+    .status.done         { background: #06b6d420; color: var(--cyan); border: 1px solid var(--cyan-dim); }
+    .status { cursor: pointer; user-select: none; transition: opacity .15s, transform .1s; }
+    .status:hover { opacity: .8; }
+    .status:active { transform: scale(.95); }
+
+    /* Checkbox visual */
+    .check-box {
+      width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
+      border: 1.5px solid var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: transparent;
+    }
+    .check-box.checked { background: var(--cyan); border-color: var(--cyan); color: var(--bg); }
+
+    /* Footer */
+    footer {
+      max-width: 960px; margin: 48px auto 0;
+      font-size: 12px; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border); padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">F</div>
+  <div class="header-text">
+    <h1>Fitness App — ICP Reference</h1>
+    <p>Internal targeting guide · Fitness vertical</p>
+  </div>
+  <span class="badge">Internal</span>
+</header>
+
+<div class="grid">
+
+  <!-- ───────────── ICP 1 ───────────── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icp-label">ICP 01</div>
+      <h2>Мережі з поганим рейтингом апки</h2>
+    </div>
+    <div class="card-body">
+
+      <div>
+        <div class="section-label"><span class="section-icon">👤</span>Хто</div>
+        <div class="who-tags">
+          <span class="tag highlight">3+ локацій</span>
+          <span class="tag highlight">Рейтинг &lt; 3.0</span>
+          <span class="tag">Апка давно не оновлювалась</span>
+          <span class="tag">Хвиля негативу після редизайну</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label"><span class="section-icon">🔥</span>Біль</div>
+        <div class="pain-text">
+          Вже витратили гроші — продукт не працює. Користувачі скаржаться публічно:
+          <strong>репутаційна проблема</strong>, яку власник бачить щодня, але не знає як вирішити швидко.
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label"><span class="section-icon">🚪</span>Вхід</div>
+        <div class="entry-box">
+          <strong>Безкоштовний QA аудит</strong> як door opener — аналізуємо публічні відгуки,
+          знаходимо топ-проблеми, надсилаємо коротке резюме. Нульовий поріг входу для ліда.
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label"><span class="section-icon">📄</span>Контент</div>
+        <ul class="checklist">
+          <li>
+            <span class="check-box">✓</span>
+            <span class="item-name">Шаблон аудит-листа — топ-10 причин низьких рейтингів фітнес-апок</span>
+            <span class="status not-started">Not started</span>
+          </li>
+          <li>
+            <span class="check-box">✓</span>
+            <span class="item-name">Cold outreach повідомлення з прикладом аудиту</span>
+            <span class="status not-started">Not started</span>
+          </li>
+          <li>
+            <span class="check-box">✓</span>
+            <span class="item-name">Лендінг / одностор. PDF з офером аудиту</span>
+            <span class="status not-started">Not started</span>
+          </li>
+          <li>
+            <span class="check-box">✓</span>
+            <span class="item-name">Кейс: до / після виправлення рейтингу</span>
+            <span class="status not-started">Not started</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ───────────── ICP 2 ───────────── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icp-label">ICP 02</div>
+      <h2>Мережі що скейляться і відходять від white-label</h2>
+    </div>
+    <div class="card-body">
+
+      <div>
+        <div class="section-label"><span class="section-icon">👤</span>Хто</div>
+        <div class="who-tags">
+          <span class="tag highlight">3–5 локацій</span>
+          <span class="tag highlight">Glofox / Mindbody ~$300/міс</span>
+          <span class="tag">Нещодавно відкрили нові точки</span>
+          <span class="tag">Анонсують розширення</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label"><span class="section-icon">🔥</span>Біль</div>
+        <div class="pain-text">
+          Після 3–4 локацій і 1.5 року власний продукт вже окупається —
+          але вони про це <strong>не знають</strong> і продовжують платити за оренду платформи.
+          Гроші ідуть щомісяця, цінності не зростає.
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label"><span class="section-icon">🚪</span>Вхід</div>
+        <div class="entry-box">
+          <strong>Показати економіку</strong> — скільки вже витратили і що отримають,
+          якщо перейдуть на власне рішення. Показати 2 "реальні" кейси.
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label"><span class="section-icon">📄</span>Контент</div>
+        <ul class="checklist">
+          <li>
+            <span class="check-box">✓</span>
+            <span class="item-name">ROI-калькулятор: white-label vs власна апка за 3 роки</span>
+            <span class="status not-started">Not started</span>
+          </li>
+          <li>
+            <span class="check-box">✓</span>
+            <span class="item-name">Порівняльна таблиця витрат Glofox / Mindbody vs custom</span>
+            <span class="status not-started">Not started</span>
+          </li>
+          <li>
+            <span class="check-box">✓</span>
+            <span class="item-name">Cold outreach з конкретною сумою «ви вже заплатили X»</span>
+            <span class="status not-started">Not started</span>
+          </li>
+          <li>
+            <span class="check-box">✓</span>
+            <span class="item-name">Кейс: мережа що перейшла і що отримала через рік</span>
+            <span class="status not-started">Not started</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>Fitness App · Internal ICP Reference</span>
+  <span>Updated: March 2026</span>
+</footer>
+
+<script>
+  const STATES = [
+    { cls: 'not-started', label: 'Not started' },
+    { cls: 'in-progress',  label: 'In progress' },
+    { cls: 'done',         label: 'Done' },
+  ];
+
+  document.querySelectorAll('.status').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const current = STATES.findIndex(s => pill.classList.contains(s.cls));
+      const next = STATES[(current + 1) % STATES.length];
+      const prev = STATES[current];
+      pill.classList.remove(prev.cls);
+      pill.classList.add(next.cls);
+      pill.textContent = next.label;
+
+      const box = pill.closest('li').querySelector('.check-box');
+      if (box) box.classList.toggle('checked', next.cls === 'done');
+    });
+  });
+</script>
+</body>
+</html>
