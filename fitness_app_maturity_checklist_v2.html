@@ -1,0 +1,207 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
+  .fc-wrap { font-family: 'DM Sans', sans-serif; padding: 2rem 0; max-width: 720px; }
+  .fc-header { margin-bottom: 2.5rem; }
+  .fc-title { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; color: var(--color-text-primary); margin: 0 0 8px; }
+  .fc-subtitle { font-size: 14px; color: var(--color-text-secondary); margin: 0; line-height: 1.6; }
+  .fc-level { margin-bottom: 2rem; border: 0.5px solid var(--color-border-tertiary); border-radius: 16px; overflow: hidden; }
+  .fc-level-header { padding: 1.25rem 1.5rem; display: flex; align-items: flex-start; gap: 16px; cursor: pointer; user-select: none; }
+  .fc-level-header:hover { background: var(--color-background-secondary); }
+  .fc-badge { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; margin-top: 2px; }
+  .badge-1 { background: #E6F1FB; color: #0C447C; }
+  .badge-2 { background: #E1F5EE; color: #085041; }
+  .badge-3 { background: #FAC775; color: #633806; }
+  .fc-level-meta { flex: 1; }
+  .fc-level-title { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 4px; }
+  .fc-level-desc { font-size: 13px; color: var(--color-text-secondary); margin: 0; line-height: 1.5; }
+  .fc-toggle { font-size: 18px; color: var(--color-text-tertiary); transition: transform 0.2s; margin-top: 6px; flex-shrink: 0; }
+  .fc-toggle.open { transform: rotate(180deg); }
+  .fc-body { display: none; border-top: 0.5px solid var(--color-border-tertiary); }
+  .fc-body.open { display: block; }
+  .fc-section { padding: 1.25rem 1.5rem; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .fc-section:last-child { border-bottom: none; }
+  .fc-section-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin: 0 0 12px; }
+  .fc-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; cursor: pointer; }
+  .fc-item:last-child { margin-bottom: 0; }
+  .fc-checkbox { width: 18px; height: 18px; border: 0.5px solid var(--color-border-secondary); border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; background: var(--color-background-primary); }
+  .fc-checkbox.checked { background: var(--color-text-primary); border-color: var(--color-text-primary); }
+  .fc-checkbox.checked::after { content: ''; width: 10px; height: 6px; border-left: 2px solid white; border-bottom: 2px solid white; transform: rotate(-45deg) translate(1px, -1px); display: block; }
+  .fc-item-text { flex: 1; }
+  .fc-item-label { font-size: 14px; color: var(--color-text-primary); line-height: 1.4; margin: 0 0 2px; }
+  .fc-item-note { font-size: 12px; color: var(--color-text-secondary); margin: 0; line-height: 1.4; font-style: italic; }
+  .fc-progress-bar { height: 3px; background: var(--color-border-tertiary); border-radius: 2px; margin: 0 1.5rem; overflow: hidden; }
+  .fc-progress-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+  .fill-1 { background: #378ADD; }
+  .fill-2 { background: #1D9E75; }
+  .fill-3 { background: #BA7517; }
+  .fc-progress-label { font-size: 12px; color: var(--color-text-secondary); padding: 6px 1.5rem 1rem; }
+  .fc-summary { background: var(--color-background-secondary); border-radius: 12px; padding: 1.25rem; margin-top: 1.5rem; display: flex; gap: 2rem; }
+  .fc-summary-item { text-align: center; flex: 1; }
+  .fc-summary-num { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--color-text-primary); }
+  .fc-summary-lbl { font-size: 12px; color: var(--color-text-secondary); }
+  .fc-cta { margin-top: 1.5rem; padding: 1rem 1.25rem; border: 0.5px solid var(--color-border-secondary); border-radius: 12px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+  .fc-cta strong { color: var(--color-text-primary); font-weight: 500; }
+</style>
+
+<div class="fc-wrap">
+  <div class="fc-header">
+    <h1 class="fc-title">Fitness App Retention Checklist</h1>
+    <p class="fc-subtitle">3 maturity levels — from a basic functional app to a retention-driving platform. Use this to assess where you are now and what's worth building next.</p>
+  </div>
+
+  <div class="fc-level" id="level1">
+    <div class="fc-level-header" onclick="toggleLevel('level1')">
+      <div class="fc-badge badge-1">1</div>
+      <div class="fc-level-meta">
+        <p class="fc-level-title">Foundation — your app works</p>
+        <p class="fc-level-desc">Members can book, check in, and manage their membership. Without this, everything else fails.</p>
+      </div>
+      <div class="fc-toggle open" id="toggle-level1">▾</div>
+    </div>
+    <div class="fc-progress-bar"><div class="fc-progress-fill fill-1" id="prog1" style="width:0%"></div></div>
+    <div class="fc-progress-label" id="plabel1">0 of 12 completed</div>
+    <div class="fc-body open" id="body-level1">
+      <div class="fc-section">
+        <p class="fc-section-title">Access & membership</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Stable login — no forced logouts, no password reset failures</p><p class="fc-item-note">One of the top reasons for 1-star reviews — members can't get in, they leave and don't come back</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Reliable QR / barcode check-in at the door</p><p class="fc-item-note">If this fails, the member's first experience at the club that day is frustration</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Digital membership card always accessible — including offline</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Payment management — view, update, renew subscription in-app</p></div></div>
+      </div>
+      <div class="fc-section">
+        <p class="fc-section-title">Booking & scheduling</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Class booking and cancellation — syncs reliably with the club system</p><p class="fc-item-note">Booking that doesn't reflect at the front desk destroys trust immediately</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Up-to-date class schedule — no missing or ghost classes</p><p class="fc-item-note">When classes disappear from the app, members assume the studio is closed</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Waitlist management with automatic notification when a spot opens</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Personal trainer booking</p></div></div>
+      </div>
+      <div class="fc-section">
+        <p class="fc-section-title">Stability & platform</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">No crashes or freezing — especially after updates</p><p class="fc-item-note">Apps that introduce new bugs after a redesign often go from decent ratings to 1-star overnight</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Consistent experience on both iOS and Android</p><p class="fc-item-note">A well-rated iOS app with a broken Android version means half your members are frustrated</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Regular updates — at minimum every 3–4 months</p><p class="fc-item-note">No updates for 12+ months signals to members the product is abandoned</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Club / studio finder with location and hours</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-level" id="level2">
+    <div class="fc-level-header" onclick="toggleLevel('level2')">
+      <div class="fc-badge badge-2">2</div>
+      <div class="fc-level-meta">
+        <p class="fc-level-title">Engagement — your app builds habits</p>
+        <p class="fc-level-desc">Members come back not just to book, but because the app tracks their progress, motivates them, and makes them feel connected to the club.</p>
+      </div>
+      <div class="fc-toggle open" id="toggle-level2">▾</div>
+    </div>
+    <div class="fc-progress-bar"><div class="fc-progress-fill fill-2" id="prog2" style="width:0%"></div></div>
+    <div class="fc-progress-label" id="plabel2">0 of 14 completed</div>
+    <div class="fc-body open" id="body-level2">
+      <div class="fc-section">
+        <p class="fc-section-title">Progress & data</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Workout history — every visit logged automatically</p><p class="fc-item-note">Data represents effort and identity, not just numbers. When it disappears, members feel it personally</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Personal records and milestones visible in profile</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Attendance streaks and activity stats</p><p class="fc-item-note">Members who track streaks visit more consistently — even during low-motivation periods</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Wearable integration — Apple Health, Google Fit, Garmin</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Data persists across app updates and device changes</p><p class="fc-item-note">Losing progress after an update is one of the most emotionally damaging app failures</p></div></div>
+      </div>
+      <div class="fc-section">
+        <p class="fc-section-title">Motivation & gamification</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Badges and achievements for milestones</p><p class="fc-item-note">Members react emotionally to badge loss — they approach staff to restore progress. The attachment is real.</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Leaderboard or activity ranking among club members</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Social nudges — "your friend just booked this class"</p><p class="fc-item-note">Social accountability is one of the strongest predictors of consistent attendance</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Push notifications — class reminders, streak alerts, re-engagement</p><p class="fc-item-note">Behaviorally timed nudges when a member hasn't visited in 10+ days — not just promotional blasts</p></div></div>
+      </div>
+      <div class="fc-section">
+        <p class="fc-section-title">Content & training</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Basic workout library — on-demand classes or guided sessions</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Content accessible outside the club — at home, while traveling</p><p class="fc-item-note">Members who train with the app while traveling don't lose their streak — and don't cancel</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Calendar sync — classes appear in the member's phone calendar</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Club news and updates — in-app, not just email</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-level" id="level3">
+    <div class="fc-level-header" onclick="toggleLevel('level3')">
+      <div class="fc-badge badge-3">3</div>
+      <div class="fc-level-meta">
+        <p class="fc-level-title">Intelligence — your app works for you</p>
+        <p class="fc-level-desc">AI-powered features that reduce churn proactively, personalize at scale, and open new revenue streams beyond the gym floor.</p>
+      </div>
+      <div class="fc-toggle open" id="toggle-level3">▾</div>
+    </div>
+    <div class="fc-progress-bar"><div class="fc-progress-fill fill-3" id="prog3" style="width:0%"></div></div>
+    <div class="fc-progress-label" id="plabel3">0 of 14 completed</div>
+    <div class="fc-body open" id="body-level3">
+      <div class="fc-section">
+        <p class="fc-section-title">AI retention & churn prevention</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Churn prediction — identifies members likely to cancel before they do</p><p class="fc-item-note">Based on attendance frequency, booking patterns, and engagement signals</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Automated re-engagement sequences triggered by inactivity</p><p class="fc-item-note">If a member hasn't visited in 3 weeks, the system acts — not a human manually sending emails</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Gym crowd prediction — shows busy and quiet times in real time</p><p class="fc-item-note">Helps members plan visits and reduces drop-off from "it was too crowded" moments</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Behavioral nudges timed to individual patterns — not generic blasts</p></div></div>
+      </div>
+      <div class="fc-section">
+        <p class="fc-section-title">AI personalization</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Personalized workout plans generated and adapted over time</p><p class="fc-item-note">Based on goals, history, recovery, and available equipment. 78% of AI fitness features are now adaptive.</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Smart class recommendations based on past bookings and preferences</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">AI coaching assistant — answers questions, adjusts plans, motivates</p><p class="fc-item-note">Goes beyond a chatbot — acts as a 24/7 wellness concierge available between trainer sessions</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Nutrition tracking with AI meal planning and calorie analysis</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Real-time biometric coaching during class — heart rate zones, effort display</p><p class="fc-item-note">Live workout data visible on in-studio screens. Post-class summary with performance breakdown.</p></div></div>
+      </div>
+      <div class="fc-section">
+        <p class="fc-section-title">Revenue & scale</p>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Dual app architecture — member app and club management app separate</p><p class="fc-item-note">Each product optimized independently. Non-members can access workout content without gym access.</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Online training for non-members — monetize beyond physical locations</p><p class="fc-item-note">Your trainers' expertise becomes a product that scales without additional floor space</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">AI workout buddy personas — motivational presence between human touchpoints</p><p class="fc-item-note">Reduces dependency on staff for day-to-day engagement and motivation</p></div></div>
+        <div class="fc-item" onclick="toggle(this)"><div class="fc-checkbox"></div><div class="fc-item-text"><p class="fc-item-label">Member activity capture outside the club — full lifestyle coaching layer</p><p class="fc-item-note">Extends value from gym visits to 24/7 engagement. Members stay connected even when not on-site.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-summary">
+    <div class="fc-summary-item"><div class="fc-summary-num" id="total-checked">0</div><div class="fc-summary-lbl">checked</div></div>
+    <div class="fc-summary-item"><div class="fc-summary-num">40</div><div class="fc-summary-lbl">total items</div></div>
+    <div class="fc-summary-item"><div class="fc-summary-num" id="total-pct">0%</div><div class="fc-summary-lbl">coverage</div></div>
+  </div>
+
+  <div class="fc-cta">
+    <strong>Not sure where your app stands?</strong> We review fitness apps against this framework and identify the highest-impact gaps — reach out for a free assessment.
+  </div>
+</div>
+
+<script>
+const counts = { level1: 12, level2: 14, level3: 14 };
+const checked = { level1: 0, level2: 0, level3: 0 };
+
+function toggle(item) {
+  const cb = item.querySelector('.fc-checkbox');
+  const isChecked = cb.classList.toggle('checked');
+  const level = item.closest('.fc-level').id;
+  checked[level] += isChecked ? 1 : -1;
+  updateProgress(level);
+  updateSummary();
+}
+
+function updateProgress(level) {
+  const n = level.slice(-1);
+  const pct = Math.round((checked[level] / counts[level]) * 100);
+  document.getElementById('prog' + n).style.width = pct + '%';
+  document.getElementById('plabel' + n).textContent = checked[level] + ' of ' + counts[level] + ' completed';
+}
+
+function updateSummary() {
+  const total = checked.level1 + checked.level2 + checked.level3;
+  const pct = Math.round((total / 40) * 100);
+  document.getElementById('total-checked').textContent = total;
+  document.getElementById('total-pct').textContent = pct + '%';
+}
+
+function toggleLevel(id) {
+  const body = document.getElementById('body-' + id);
+  const tog = document.getElementById('toggle-' + id);
+  body.classList.toggle('open');
+  tog.classList.toggle('open');
+}
+</script>
